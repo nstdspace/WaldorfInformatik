@@ -23,6 +23,6 @@ jobs:
       - run: npx tsc
       - run: mkdir _site
       - run: mv -v *.html _site/
-      - run: mv -v *.js _site/
+      - run: mv -v dist _site/dist
       - uses: actions/upload-pages-artifact@main
       - uses: actions/deploy-pages@main

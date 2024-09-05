@@ -1,2 +1,7 @@
-const x: number = 1235
-alert("your banana is: " + x)
+console.log("jozhin zbashin")
+
+document.getElementById("xb")!.onclick = () => f()
+
+export const f = () => {
+    console.log("clicked zbashin...")
+}
