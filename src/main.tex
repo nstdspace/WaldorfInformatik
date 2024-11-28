@@ -1,0 +1,434 @@
+\documentclass[ngerman,11pt]{article}
+
+\usepackage[utf8]{fontenc}
+\usepackage[left=1.5cm, right=1.5cm, top=1cm, bottom=1cm]{geometry}
+\usepackage{babel}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\MakeOuterQuote{"}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\pagenumbering{gobble}
+\renewcommand{\lstlistingname}{Schnipsel}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    captionpos=b,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+    inputencoding=utf8
+}
+
+% Packages
+\usepackage{amsmath}
+
+% Document
+\begin{document}
+
+    \setlength{\parindent}{0}
+
+    {\huge \textbf{Informatik - Programmieren mit Java - Handout}}
+
+    \vspace{1cm}
+
+
+    \section{Arbeiten mit der Konsole}
+    Die \textit{Konsole} ist ein Werkzeug zur Steuerung eines Computers.
+
+    \vspace{0.5cm}
+
+    \subsection{Konsole öffnen}
+    Unter Windows können wir die Konsole unter anderem so öffnen:
+    \begin{itemize}
+        \item \lstinline{Windows + R} drücken, \lstinline{cmd} eingeben, \lstinline{Enter} drücken
+        \item In der Windows-Suche (unten links) nach \lstinline{cmd} oder \lstinline{Eingabeaufforderung} suchen, auf \lstinline{Eingabeaufforderung} klcicken
+    \end{itemize}
+
+    \vspace{0.5cm}
+
+    \subsection{Konsole bedienen}
+    Öffnen wir die Konsole, sehen wir in etwa Folgendes:
+
+    \begin{lstlisting}
+C:\Users\Lernen>
+    \end{lstlisting}
+
+    Der Teil vor dem \lstinline{'>'} ist der Pfad, "an dem wir uns befinden" - das sogenannte \textit{Arbeitsverzeichnis}. \\
+
+    Wir haben 2 Konsolen-Befehle kennengelernt:
+    \begin{itemize}
+        \item \lstinline{cd} \textit{(\textbf{c}hange \textbf{d}irectory)} - wechselt das Arbeitsverzeichnis. \\
+        Anwendung:
+        \begin{lstlisting}
+cd Unterordner
+cd C:\Users\Lernen\Desktop\MeinOrdner
+cd ..
+        \end{lstlisting}
+        (Zeile 1: Wechsle zu einem \textit{Unterodner} im aktuellen Ordner) \\
+        (Zeile 2: Wechsle zum angegebenen Pfad) \\
+        (Zeile 3: Wechsle zum \textit{Überordner}) \\
+
+        \item \lstinline{dir} \textit{(directory)} - zeigt alle Dateien und Ordner im aktuellen Arbeitsverzeichnis an
+    \end{itemize}
+
+    \vspace{0.5cm}
+
+
+    \section{Java installieren}
+    Bevor wir mit Java arbeiten können, müssen wir das \textit{JDK} (Java-Development-Kit) installieren.
+    Am einfachsten geht das über die Konsole mit diesem Befehl:
+
+    \begin{lstlisting}
+winget install EclipseAdoptium.Temurin.17.JDK
+    \end{lstlisting}
+
+    Schließen wir nach erfolgter Installation die Konsole und öffnen sie erneut, können wir mit dem
+    Befehl \lstinline{java} prüfen, ob die Installation erfolgreich war.
+    War Sie es nicht, sehen wir einen Fehler, in etwa "Den Befehl gibt es nicht" -
+    ansonsten einen längeren Hilfetext von Java selbst.
+
+
+    \section{Java - absolute Grundlagen}
+
+    \vspace{0.5cm}
+
+    \subsection{Java-Programm ausführen}
+    Wir haben die Grundlagen betrachtet, wie man mit der Programmiersprache Java arbeitet.
+    Noch einmal zusammengefasst:
+
+    \begin{itemize}
+        \item Wir schreiben \textit{Programmcode} (oder einfach \textit{Code}) in einer Datei, z.B. \lstinline{TollesProgramm.java}
+        \item Wir \textit{kompilieren} das Programm mit \lstinline{javac TollesProgramm.java}
+        \item Wir führen es aus mit \lstinline{java TollesProgramm}
+    \end{itemize}
+
+    Der Befehl \lstinline{javac} erzeugt eine Datei \lstinline{TollesProgramm.class}, wenn alles funktioniert hat.
+    Ansonsten bekommen wir eine \textit{Fehlermeldung}.
+    Letztere beschreibt mal mehr mal weniger genau, wo wir einen Fehler gemacht haben. \\
+
+    \textit{Beachte}: Damit die Befehle \lstinline{javac} und \lstinline{java} funktionieren, müssen wir im korrekten Arbeitsverzeichnis sein
+    (nämlich dort, wo sich unsere Datei \lstinline{TollesProgramm.java} befindet).
+
+    \vspace{0.5cm}
+
+    \subsection{Minimales Java Programm}
+    Zuletzt haben wir ein minimales Java-Programm betrachtet.
+    Dieses sieht wie folgt aus:
+
+    \begin{lstlisting}[label={lst:minimal_java},caption=Minimales Java Programm]
+public class Test {
+    public static void main(String[] args) {
+    }
+}
+    \end{lstlisting}
+
+    Dieses Programm tut gar nichts.
+    Diese 4 Zeilen stellen das "Grundgerüst" eines Java-Programms dar. \\
+
+    Erste neue Kleinigkeit: mit \lstinline{//} (doppel-slash) können wir \textit{Kommentare} in unserem
+    Code schreiben.
+    Alles innerhalb einer Zeile, was nach \lstinline{//} kommt, wird zu einem Kommentar.
+    Ein Kommentar wird von Java komplett ignoriert, und taucht im kompilierten Code (der \lstinline{.class}-Datei) nicht auf. \\
+
+    Wir nutzen Kommentare meistens, um anderen Lesern des Codes (oder unserem zukünftigen Ich) zu erläutern, WARUM
+    bestimmte Dinge im Code so sind wie sie sind (WAS passiert brauchen wir nicht zu erklären, das sagt ja der Programmcode). \\
+
+    Die folgenden Zeilen sind kompiliert also exakt das selbe Programm wie in Schnipsel 1:
+
+    \begin{lstlisting}[caption=Kommentare]
+// Ich bin nur ein Kommentar und habe sonst keine Funktion
+public class Test { // Ich bin auch ein Kommentar (der Teil vor mir aber nicht)
+    public static void main(String[] args) {
+        // Ich bin noch ein Kommentar
+        // Wieder ein Kommentar
+    }
+    // Ich stehe hier nur so
+}
+    \end{lstlisting}
+
+    \vspace{0.5cm}
+
+    \subsection{Der main-Block}
+    Wir können noch nicht jedes Detail des Grundgerüsts klären.
+    Es reicht aber zunächst zu wissen, dass unser Programmcode in den inneren Block, den "main-Block" gehört:
+
+    \begin{lstlisting}[caption=main-Block]
+public class Test {
+    public static void main(String[] args) {
+        // Das hier ist der main-Block unseres Programms.
+        // Hier schreiben wir (vorerst) unseren gesamten Programmcode rein
+    }
+}
+    \end{lstlisting}
+
+
+    \section{Java - Grundlagen}
+
+    Die Befehle, die wir in den main-Block schreiben, werden nacheinander von oben nach unten abgearbeitet. \\
+
+    Wir halten einmal die ersten wichtigen Java Befehle fest.
+    Jeder Befehl wird mit einem \lstinline{;} \textit{(Semikolon)} beendet.
+
+    \vspace{0.5cm}
+    \subsection{Ausgabe}
+
+    Mit \lstinline{System.out.println} können wir unser Programm etwas auf der Konsole ausgeben lassen.
+    Auszugebenden Text setzen wir dabei in Anführungszeichen (Erklärung im Abschnitt "Strings").
+    Beispiel:
+
+    \begin{lstlisting}[label={lst:sysout},caption=Ausgabe auf der Konsole]
+public class Test {
+    public static void main(String[] args) {
+        System.out.println("Ich bin ein interessanter Text");
+        System.out.println("42");
+
+        // Die nächste Zeile produziert die selbe Ausgabe wie die vorherige, die Zahl wird einfach zu Text umgewandelt:
+        System.out.println(42);
+    }
+}
+    \end{lstlisting}
+
+    \newpage
+    \vspace{0.5cm}
+    \subsection{Variablen}
+
+    Eine Variable ist ein \textit{Platzhalter}.
+    Eine Variable hat stets einen
+    \begin{itemize}
+        \item \textit{Datentyp} (oder einfach Typ),
+        \item einen \textit{Namen},
+        \item und einen \textit{Wert}.
+    \end{itemize}
+
+    Der Datentyp gibt an WAS FÜR EINE ART von Werten in der Variable gespeichert werden kann.
+    Den Namen nutzen wir, um auf den Wert der Variablen zuzugreifen oder allgemein "etwas mit ihr zu tun".\\
+
+    Beispiel:
+
+    \begin{lstlisting}[caption=Variable]
+public class Test {
+    public static void main(String[] args) {
+        int anzahlBananen = 17;
+        System.out.println(anzahlBananen);
+    }
+}
+    \end{lstlisting}
+
+    Hier erstellen wir eine Variable vom Typ \lstinline{int} (das steht für \textit{Integer}, englisch für Ganzzahl)
+    und weisen ihr den Wert $17$ zu. \\
+
+    Je nach Datentyp können wir verschiedene Dinge mit Variablen anstellen. \\
+
+    Zahlen können wir zum Beispiel mit \lstinline{+} addieren:
+
+    \begin{lstlisting}[caption=Summe zweier Ganzzahlen]
+public class Test {
+    public static void main(String[] args) {
+        int a = 15;
+        int b = 21;
+        int summe = a + b;
+        System.out.println(summe);
+    }
+}
+    \end{lstlisting}
+
+    und genauso subtrahieren (\lstinline{-}), multiplizieren (\lstinline{*}) oder dividieren (\lstinline{/}).
+
+    Java kann auch komplexere Terme interpretieren:
+
+\begin{lstlisting}[caption=binomische Formel]
+public class Test {
+    public static void main(String[] args) {
+        int a = 4;
+        int b = 5;
+        int ergebnis1 = (a + b) * (a + b);
+        int ergebnis2 = a * a + 2 * b * a + b * b;
+
+        // In Andenken an die binomische Formel hoffen wir mal dass hier zweimal das selbe rauskommt:
+        System.out.println(ergebnis1);
+        System.out.println(ergebnis2);
+    }
+}
+\end{lstlisting}
+
+
+    \vspace{0.5cm}
+    \subsection{Einer Variablen einen neuen Wert zuweisen}
+
+    Mit dem Befehl \lstinline{int x = 5} tun wir eigentlich 2 Dinge auf einmal:
+
+    \begin{itemize}
+        \item Wir \textit{deklarieren} die Variable \lstinline{x} vom Typ \lstinline{int}
+        (wir "sagen dass es sie gibt", englisch "to declare"),
+        \item und wir weisen \lstinline{x} den Wert $5$ zu.
+    \end{itemize}
+
+    Wenn wir den Wert einer Variablen nachträglich ändern wollen, nutzen wir dieselbe
+    schreibweise, aber ohne den Typ zu wiederholen:
+
+    \begin{lstlisting}[caption=Wert einer Variablen ändern]
+public class Test {
+    public static void main(String[] args) {
+        int x = 5;
+        System.out.println(x);
+        x = -3;
+        System.out.println(x);
+    }
+}
+    \end{lstlisting}
+
+    Variablennamen müssen eindeutig sein (innerhalb eines "scopes", dazu später mehr).
+    Schreiben wir \lstinline{int x = 5} und später \lstinline{int x = -3}, denkt der Compiler,
+    dass wir zwei verschiedene Variablen mit dem Namen \lstinline{x} haben wollen - das führt zu einem Fehler.
+
+    \subsection{Weitere Datentypen}
+
+    Weitere Datentypen sind:
+    \begin{itemize}
+        \item \lstinline{double} (für Kommazahlen, z.B. \lstinline{double x = 0.5543})
+        \item \lstinline{boolean} (für Wahrheitswerte, z.B. \lstinline{boolean T = true})
+        \item \lstinline{String} (für Zeichenketten, z.B. \lstinline{String text = "Bananenkuchen"})
+    \end{itemize}
+
+    \textit{Beachte}: \lstinline{String} gehört eigentlich zu einer anderen Kategorie als \lstinline{int}, \lstinline{double}, \lstinline{boolean}.
+    Letztere sind sogenannte \textit{primitive Datentypen}, \lstinline{String} dagegen \textbf{nicht} - aber dazu später mehr. \\
+
+    Anmerkung: Wir können auch \lstinline{String}'s addieren:
+
+    \begin{lstlisting}[caption=Strings addieren]
+public class Test {
+    public static void main(String[] args) {
+        String teil1 = "Ciao";
+        String teil2 = "Kakao";
+        System.out.println(teil1 + " " + teil2);
+    }
+}
+    \end{lstlisting}
+
+    Wir können Strings sogar mit beliebigen anderen Variablen addieren:
+
+    \begin{lstlisting}[caption=String + Zahl]
+public class Test {
+    public static void main(String[] args) {
+        int x = 18;
+        System.out.println("Hier liegen " + x  + " Maracujas");
+    }
+}
+    \end{lstlisting}
+
+    Die Summanden, die nicht vom Typ \lstinline{String} sind, werden dabei zu Strings umgewandelt.
+
+    \subsection{Bedingungen und Kontrollstrukturen}
+
+    Unser Programm wird zwar von oben nach unten, Befehl für Befehl abgearbeitet - dennoch wollen
+    wir manchmal dass es sich nicht immer exakt gleich verhält.
+
+    Eine Art dies zu tun, ist, den Programmfluss an \textit{Bedingungen} zu knüpfen - einfach ausgedrückt:
+    "Wenn das, dann\dots\ sonst etwas anderes". \\
+
+    Um zu überprüfen "ob etwas gilt" brauchen wir Wahrheitswerte (englisch: boolean).
+    Eine Variable vom typ \lstinline{boolean} kann nur genau zwei Werte haben: \lstinline{true} oder \lstinline{false}.
+    \textit{True} ist englisch für "wahr", \textit{False} für "falsch".\\
+
+    Wir können so einen Wahrheitswert zum Beispiel durch den Vergleich von Zahlenwerten vergleichen:
+
+    \begin{lstlisting}[caption=Wahrheitswerte]
+public class Test {
+    public static void main(String[] args) {
+        int x = 4;
+        int y = 23494;
+
+        boolean xKleinerY = x < y;
+        boolean yKleinerX = y < x;
+        boolean xGroesserY = x > y;
+        boolean yGroesserX = y > x;
+        boolean xGleichY = x == y;
+        boolean xUngleichY = x != y;
+
+        System.out.println(xKleinerY);
+        System.out.println(yKleinerX);
+        // ...
+    }
+}
+    \end{lstlisting}
+
+
+    Wahrheitswerte können wir nutzen, um bestimmte Teile des Programms optional ausführen zu lassen - nämlich
+    nur dann wenn eine Bedingung wahr ist. \\
+
+    Das geht wie folgt:
+
+    \begin{lstlisting}[caption=Variable]
+public class Test {
+    public static void main(String[] args) {
+        int x = 5;
+        double y = 3.4;
+
+        // Der Code innerhalb des if-Blocks wird nur ausgefuehrt, wenn das Resultat von "x > y" true ist:
+        if(x > y) {
+            System.out.println("x ist groesser als y!!!!");
+        }
+    }
+}
+    \end{lstlisting}
+
+    Diese Struktur nennt man \textit{if-Abfragge} oder \textit{if-Statement} - \textit{if} bedeutet auf englisch "wenn". \\
+
+    Ein \lstinline{if} können wir zudem mit einem \lstinline{else} (englisch für sonst) kombinieren:
+
+    \begin{lstlisting}[caption=Variable]
+public class Test {
+    public static void main(String[] args) {
+        int x = 5;
+        double y = 3.4;
+
+        // Der Code innerhalb des if-Blocks wird nur ausgefuehrt, wenn das Resultat von "x > y" true ist:
+        if(x > y) {
+            System.out.println("x ist groesser als y!!!!");
+        } else {
+            // Der code in diesem else Block wird nur "sonst" ausgeführt, also wenn die Bedingung im if(...) NICHT wahr ist
+            System.out.println("x ist anscheinend nicht groesser als y");
+        }
+    }
+}
+    \end{lstlisting}
+
+    Konkretes Beispiel: Wir wollen entscheiden, ob ein Kreis mit dem angegebenen Radius größer oder kleiner als ein Grenzwert ist.
+
+    \begin{lstlisting}[caption=Kreisfläche]
+public class Test {
+    public static void main(String[] args) {
+        double PI = 3.141
+
+        double radius = 13;
+        double grenzwert = 30;
+
+        double flaeche = PI * radius * radius;
+
+        if(flaeche > grenzwert) {
+            System.out.println("Die Flaeche ist " + flaeche + ", groesser als der Grenzwert!");
+        } else {
+            System.out.println("Die Flaeche ist " + flaeche + ", das ist ok.");
+        }
+    }
+}
+    \end{lstlisting}
+
+\end{document}
