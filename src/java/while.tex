@@ -1,0 +1,389 @@
+\documentclass[ngerman,11pt]{article}
+
+\usepackage[utf8]{fontenc}
+\usepackage[left=1.5cm, right=1.5cm, top=1cm, bottom=1cm]{geometry}
+\usepackage{babel}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{csquotes}
+\MakeOuterQuote{"}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+
+\pagenumbering{gobble}
+\renewcommand{\lstlistingname}{Schnipsel}
+
+\lstset{frame=tb,
+    language=Java,
+    aboveskip=3mm,
+    belowskip=3mm,
+    showstringspaces=false,
+    captionpos=b,
+    columns=flexible,
+    basicstyle={\small\ttfamily},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    keywordstyle=\color{blue},
+    commentstyle=\color{dkgreen},
+    stringstyle=\color{mauve},
+    breaklines=true,
+    breakatwhitespace=true,
+    tabsize=3,
+    inputencoding=utf8
+}
+
+% Packages
+\usepackage{amsmath}
+
+% Document
+\begin{document}
+{\huge \textbf{Informatik - Programmieren mit Java - Schleifen}}
+
+    \setlength{\parindent}{0}
+
+
+    \section{Wiederholung - \lstinline{boolean} und \lstinline{if-else}}
+
+    Eine Variable vom Typ \lstinline{boolean} ist entweder \lstinline{true} oder \lstinline{false} (wahr oder falsch).
+    Mithilfe von \lstinline{if-else} können wir steuern, wie sich das Programm in bestimmten
+    Fällen verhalten soll.
+
+    Beispiele, wie wir booleans erzeugen können:
+
+    \begin{lstlisting}[caption=\lstinline{Vergleiche}]
+int x = 3;
+int y = 8;
+boolean b1 = x < y; // ist x kleiner als y?
+boolean b2 = x > y; // ist x groesser als y?
+boolean b3 = x <= y; // ist x kleiner ODER gleich y?
+boolean b4 = x >= y; // ist x groesser ODER gleich y?
+boolean b5 = x == y; // ist x gleich y?
+    \end{lstlisting}
+
+    \begin{lstlisting}[caption=\lstinline{if-else},label={lst:x}]
+public class Main {
+    public static void main(String[] args) {
+        int jahr = 2027;
+        boolean istInVergangenheit = jahr < 2024;
+        if(istInVergangenheit) {
+            System.out.println("Willkommen in der Vergangenheit!");
+        } else {
+            System.out.println("Dies ist die Zukunft!");
+        }
+    }
+}
+    \end{lstlisting}
+
+    \textbf{Aufgabe 1}: Tippe das Programm aus Schnipsel~\ref{lst:x} ab, führe es aus und überprüfe, ob du die Ausgabe nachvollziehen kannst. \\
+
+    \textbf{Aufgabe 2}: Ändere das Programm wie folgt: Wenn die Variable \lstinline{jahr} dem aktuellen Jahr entspricht (2024),
+    soll die Ausgabe \lstinline{"Hallo, Gegenwart!"} sein.
+    Ansonsten soll die Ausgabe so sein wie vorher
+    (es sollen also insgesamt 3 verschiedene Fälle unterschieden werden).
+
+    \section{\lstinline{while}-Schleife}
+
+    Wie würdest du ein Programm schreiben, das dreimal \lstinline{"Maracuja!"} auf der Konsole ausgibt?
+    Vielleicht in etwa so:
+
+    \begin{lstlisting}
+System.out.println("Maracuja!");
+System.out.println("Maracuja!");
+System.out.println("Maracuja!");
+    \end{lstlisting}
+
+    Okay, sollte klappen.
+    Wie sähe es denn aus mit 1000 Mal?
+
+    (Nein, bitte nicht 1000 Mal die selbe Zeile einfügen!) \\
+
+    Um Teile unseres Programms mehrfach auszuführen, können wir \textit{Schleifen} verwenden.
+    Hier schauen wir uns zunächst die \lstinline{while}-Schleife an (while ist englisch für \textit{solange}). \\
+
+    \newpage
+    Auf deutsch könnten wir formulieren: \textit{"Solange eine Bedingung wahr ist, tue dies"}
+
+    Der Java Code für dieses Verhalten sieht wie folgt aus:
+
+    \begin{lstlisting}[caption=\lstinline{while}]
+while(Bedingung) {
+    // "dies"
+}
+    \end{lstlisting}
+
+    Jedes mal, bevor "dies" (also der Code innerhalb des \lstinline{while}-Blocks) ausgeführt wird, wird die Bedingung (erneut) überprüft.
+    Ist sie (immer noch) wahr, wird der Code (nochmal) ausgeführt.
+    Sonst fährt die Ausführung nach der Schleife fort. \\
+
+    Kommen wir zurück zu den Maracujas:
+
+    \begin{lstlisting}[caption=\lstinline{while}, label={while}]
+public class Main {
+    public static void main(String[] args) {
+        int zaehler = 0;
+        while(zaehler < 1000) {
+            System.out.println("Maracuja!");
+
+            // Wichtig: Zaehlvariable anpassen, sonst bleibt die Bedingung oben immer wahr, und die Schleife laeuft fuer immer!
+            zaehler = zaehler + 1;
+        }
+    }
+}
+    \end{lstlisting}
+
+    \textbf{Aufgabe 3}: Tippe das Programm aus Schnipsel \ref{while} ab, führe es aus, und überprüfe, ob du das Verhalten nachvollziehen kannst. \\
+
+    \textbf{Aufgabe 4}: Schreibe ein Programm, das die Zahlen von 1 bis 100 ausgibt. \\
+
+    \textbf{Aufgabe 5}: Schreibe ein Programm, das die Zahlen von 1 bis 100 ausgibt, wobei hinter den Zahlen 1 bis 10 ein \lstinline{"!"} ausgegeben wird.
+
+    \textit{Tipp}: Wir können Strings und Zahlen zu neuen Strings kombinieren: \lstinline{"hallo"  + 5} ergibt den String \lstinline{"hallo 5"}. \\
+
+    \textbf{Aufgabe 5.1}: Falls du in Aufgabe 5 mehr als eine \lstinline{while}-Schleife verwendet hast, finde eine Lösung, welche nur mit einer \lstinline{while}-Schleife auskommt. \\
+
+    \newpage
+    \section{Muster "zeichnen"}
+
+    \begin{lstlisting}[caption={mehrzeilige Ausgabe}, label={println}]
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("Tick");
+        System.out.println("Trick");
+        System.out.println("Track");
+    }
+}
+    \end{lstlisting}
+    \begin{lstlisting}[caption={einzeilige Ausgabe}, label={print}]
+public class Main {
+    public static void main(String[] args) {
+        System.out.print("Tick");
+        System.out.print("Trick");
+        System.out.print("Track");
+    }
+}
+    \end{lstlisting}
+
+    \textbf{Aufgabe 6}: Vergleiche die Ausgaben der Programme aus Schnipsel \ref{println} und Schnipsel \ref{print}.
+    Wo ist der Unterschied? \\
+
+    \textbf{Aufgabe 7}: Schreibe ein Programm, welches 10 Mal direkt hintereinander (in einer Zeile, ohne Leerzeichen zwischendurch) \lstinline{"Erdbeere"} ausgibt. \\
+
+    \textbf{Aufgabe 8}: Schreibe ein Programm, welches wie folgt arbeitet:
+    \begin{itemize}
+        \item Es gibt eine Variable vom Typ \lstinline{int} namens \lstinline{anzahl}
+        \item Es soll folgendes ausgegeben werden: \lstinline{1*2*3*4*5*....} (bis die Zahl \lstinline{anzahl} erreicht ist).
+    \end{itemize} \\
+
+    \vspace{1cm}
+
+    Lasst uns nun tatsächlich Muster zeichnen! \\
+    Das folgende Programm gibt ein Quadrat aus:
+
+    \begin{lstlisting}[caption=\lstinline{Muster: Quadrat}, label={quadrat}]
+public class Main {
+    public static void main(String[] args) {
+        int groesse = 7;
+
+        int zaehlerZeile = 0;
+        while (zaehlerZeile < groesse) {
+            zaehlerZeile = zaehlerZeile + 1;
+
+            int zaehlerSpalte = 0;
+            while (zaehlerSpalte < groesse) {
+                zaehlerSpalte = zaehlerSpalte + 1;
+
+                System.out.print("* ");
+            }
+
+            System.out.println();
+        }
+    }
+}
+    \end{lstlisting}
+
+    \textbf{Aufgabe 9}: Ändere den Code für das Quadrat so ab, dass ein Rechteck ausgegeben wird (Länge und Breite sollen verschieden sein können). \\
+
+    \textbf{Aufgabe 10}: Ändere den Code für das Quadrat so ab, dass stattdessen ein Dreieck ausgegeben wird.
+
+    \textit{Tipp}: Überlege dir, wie du dafür die Bedingung der inneren \lstinline{while}-Schleife anpassen kannst. \\
+
+    \textbf{Bonusaufgabe}: Schreibe ein Programm, welches einen Kreis ausgibt.
+
+    \textit{Tipp}: Satz des Pythagoras
+
+    \newpage
+
+    \section{Musterlösung}
+
+    \textbf{Aufgabe 1} Die Ausgabe sollte "Willkommen in der Vergangenheit" sein, solange das jahr kleiner ist als 2024 (also bis einschließlich 2023). \\
+    Für mindestens den Wert 2024 (inklusive der vorgegebenen 2027) sollte die Ausgabe "Dies ist die Zukunft!" sein. \\
+
+    \textbf{Aufgabe 2}
+
+    \begin{lstlisting}
+public class Main {
+    public static void main(String[] args) {
+        int jahr = 2027;
+        boolean istInVergangenheit = jahr < 2024;
+        if(istInVergangenheit) {
+            System.out.println("Willkommen in der Vergangenheit!");
+        } else {
+            // Hier kann man alternativ erst eine Variable wie vorher definieren, und diese im if verwenden:
+            // boolean istGegenwart = jahr == 2024;
+            if(jahr == 2024) {
+                System.out.println("Hallo, Gegenwart!");
+            } else {
+                System.out.println("Dies ist die Zukunft!");
+            }
+        }
+    }
+}
+    \end{lstlisting} \\
+
+    \textbf{Aufgabe 3}: Es sollten 1000 Zeilen mit dem Text "Maracuja!" ausgegeben werden. \\
+
+    \textbf{Aufgabe 4}:
+
+    \begin{lstlisting}
+public class Main {
+    public static void main(String[] args) {
+        int zahl = 1;
+        while(zahl <= 100) {
+            System.out.println(zahl);
+            zahl = zahl + 1;
+        }
+    }
+}
+    \end{lstlisting} \\
+
+    \textbf{Aufgabe 5 bzw 5.1}:
+
+    \begin{lstlisting}
+public class Main {
+    public static void main(String[] args) {
+        int zahl = 1;
+        while(zahl <= 100) {
+            if(zahl <= 10) {
+                System.out.println(zahl + "!");
+            } else {
+                System.out.println(zahl);
+            }
+            zahl = zahl + 1;
+        }
+    }
+}
+    \end{lstlisting} \\
+
+    \textbf{Aufgabe 6}: Mit \lstinline{System.out.println} wird der Ausgabe ein Zeilenumbruch angefügt, nachfolgende Ausgaben
+    geschehen also in einer neuen Konsolenzeile.
+    Mit \lstinline{System.out.print} passiert das nicht, die Ausgaben werden alle in einer Zeile hintereinander gereiht.
+    \textit{Bemerkung}: Man kann den Schülern hier den Hinweis geben, dass der Befehl \lstinline{System.out.println()} nur einen Zeilenumbruch produziert. \\
+
+    \textbf{Aufgabe 7}
+
+    \begin{lstlisting}
+public class Main {
+    public static void main(String[] args) {
+        int zahl = 1;
+        while(zahl <= 10) {
+            System.out.print("Erdbeere");
+            zahl = zahl + 1;
+        }
+    }
+}
+    \end{lstlisting} \\
+
+    \textbf{Aufgabe 8}:
+
+    \begin{lstlisting}
+public class Main {
+    public static void main(String[] args) {
+        int anzahl = 50;
+        int zaehler = 0;
+        while(zaehler <= anzahl) {
+            System.out.print(zahl + "*");
+        }
+    }
+}
+    \end{lstlisting} \\
+
+    \textbf{Aufgabe 9}:
+
+    \begin{lstlisting}[caption=\lstinline{Muster: Rechteck}]
+public class Main {
+    public static void main(String[] args) {
+        int hoehe = 6;
+        int breite = 10;
+
+        int zaehlerZeile = 0;
+        while (zaehlerZeile < hoehe) {
+            zaehlerZeile = zaehlerZeile + 1;
+
+            int zaehlerSpalte = 0;
+            while (zaehlerSpalte < breite) {
+                zaehlerSpalte = zaehlerSpalte + 1;
+
+                System.out.print("* ");
+            }
+
+            System.out.println();
+        }
+    }
+}
+    \end{lstlisting}
+
+    \textbf{Aufgabe 10}:
+
+    \begin{lstlisting}[caption=\lstinline{Muster: Dreieck}]
+public class Main {
+    public static void main(String[] args) {
+        int groesse = 7;
+
+        int zaehlerZeile = 0;
+        while (zaehlerZeile < groesse) {
+            zaehlerZeile = zaehlerZeile + 1;
+
+            int zaehlerSpalte = 0;
+            while (zaehlerSpalte < zaehlerZeile) {
+                zaehlerSpalte = zaehlerSpalte + 1;
+
+                System.out.print("* ");
+            }
+
+            System.out.println();
+        }
+    }
+}
+    \end{lstlisting} \\
+
+    \textbf{Bonusaufgabe}
+
+    \begin{lstlisting}
+public class Main {
+    public static void main(String[] args) {
+        int radius = 20;
+        int x = 0;
+        while(x < radius * 2 + 1) {
+            int y = 0;
+            while(y < radius * 2 + 1) {
+                int xRelativZurMitte = x - radius;
+                int yRelativZurMitte = y - radius;
+                if(xRelativZurMitte * xRelativZurMitte + yRelativZurMitte * yRelativZurMitte <= radius * radius) {
+                    System.out.print("O ");
+                } else {
+                    System.out.print("- ");
+                }
+                y = y + 1;
+            }
+            System.out.println();
+            x = x + 1;
+        }
+    }
+}
+        \end{lstlisting}
+
+    \end{document}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <title>Waldorf Informatik HKU</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Yuji+Boku&display=swap');
+
+    body {
+      background: #EDDFE0;
+    }
+
+    #container {
+      display: grid;
+      grid-template-columns: repeat( auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .entry {
+      width: 100%;
+      background: white;
+      box-shadow: 0 0 4px 2px #705C53;
+      display: flex;
+      flex-direction: column;
+      font-family: "Noto Sans", serif;
+      position: relative;
+    }
+
+    .overlay {
+      display: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #705C53AA;
+    }
+
+    .entry:hover .overlay {
+      display: block;
+    }
+
+    .entry span {
+      background: #B7B7B7;
+      text-align: center;
+      padding: 0.5rem;
+    }
+
+    .frame-container {
+      aspect-ratio: 16 / 9;
+      border: none;
+      overflow: hidden;
+    }
+
+    .frame {
+      width: 400%;
+      transform: scale(0.25) translateY(-150%) translateX(-150%);
+      aspect-ratio: 16 / 9;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="container">
+  <script>
+    window.onload = () => {
+      const entries = [
+        ["Angelina", "https://angelina545.github.io/Informatik/"],
+        ["Bogdan", "https://blank.org/"],
+        ["David", "https://blank.org/"],
+        ["Franz", "https://blank.org/"],
+        ["Hannah", "https://blank.org/"],
+        ["Helena", "https://blue-iu.github.io/better-your-life.com/"],
+        ["Jasan", "https://blank.org/"],
+        ["Joshua", "https://blank.org/"],
+        ["Laurin", "https://blank.org/"],
+        ["Lina", "https://blank.org/"],
+        ["Lotta", "https://blank.org/"],
+        ["Louis", "https://blank.org/"],
+        ["Loulou", "https://blank.org/"],
+        ["Mascha", "https://blank.org/"],
+        ["Melina", "https://blank.org/"],
+        ["Noah", "https://blank.org/"],
+        ["Sophia", "https://blank.org/"],
+        ["Thorsten", "https://blank.org/"],
+      ]
+      const element = document.getElementById("container");
+      entries.forEach((entry) => {
+        const div = document.createElement("div")
+        div.className = "entry"
+        div.innerHTML = `
+          <div class="frame-container">
+            <iframe
+              class="frame"
+              src="${entry[1]}">
+            </iframe>
+          </div>
+          <span>${entry[0]}</span>
+          <a class="overlay" href="${entry[1]}" target="_blank"></a>
+        `;
+        element.appendChild(div);
+      })
+    }
+  </script>
+</div>
+</body>
+</html>
